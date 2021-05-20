@@ -79,7 +79,8 @@ class ImageSticher:
         self.OutputPathEntry.insert('0', self.outputFolderPath)
 
     def load_images(self):
-        for filename in os.listdir(self.inputFolderPath):
+        self.images = []
+        for filename in sorted(os.listdir(self.inputFolderPath)):
             try:
                 im = Image.open(f"{self.inputFolderPath}/{filename}")
                 print(f"Found {filename}")
