@@ -10,6 +10,7 @@ class ImageSticher:
         self.inputFolderPath = "./"
         self.outputFolderPath = "./"
         self.images = []
+        self.status = "Waiting..."
 
         # build ui
         self.toplevel4 = tk.Tk() if master is None else tk.Toplevel(master)
@@ -53,7 +54,7 @@ class ImageSticher:
         self.RenderButton.configure(text='Render', command=self.render_image)
         self.RenderButton.pack(side='left')
         self.StatusLabel = ttk.Label(self.RenderFrame)
-        self.StatusLabel.configure(text='Waiting...')
+        self.StatusLabel.configure(text=self.status)
         self.StatusLabel.pack(side='right')
         self.RenderFrame.configure(height='200', width='200')
         self.RenderFrame.pack(side='top')
@@ -90,6 +91,7 @@ class ImageSticher:
 
     def render_image(self):
         print("Rendering")
+        self.StatusLabel.config(text="Rendering...")
         self.load_images()
 
         TotalWidth = 0
@@ -115,6 +117,7 @@ class ImageSticher:
 
         print(self.outputFolderPath + "/stiched.png")
         newImg.save(self.outputFolderPath + "/stiched.png")
+        self.StatusLabel.config(text="Done!")
 
     def run(self):
         self.mainWindow.mainloop()
