@@ -5,7 +5,8 @@ from PIL import Image
 from PIL import ImageColor
 import os
 
-class ImageSticher:
+
+class ImageStitcher:
     def __init__(self, master=None):
         self.inputFolderPath = "./"
         self.outputFolderPath = "./"
@@ -13,11 +14,12 @@ class ImageSticher:
         self.status = "Waiting..."
 
         # build ui
-        self.toplevel4 = tk.Tk() if master is None else tk.Toplevel(master)
-        self.MainFrame = ttk.Frame(self.toplevel4)
+        self.TopLevel4 = tk.Tk() if master is None else tk.Toplevel(master)
+        self.TopLevel4.title("Image Stitcher")
+        self.MainFrame = ttk.Frame(self.TopLevel4)
         self.TitleFrame = ttk.Frame(self.MainFrame)
         self.TitleLabel = ttk.Label(self.TitleFrame)
-        self.TitleLabel.configure(compound='bottom', text='Image Sticher')
+        self.TitleLabel.configure(compound='bottom', text='Image Stitcher')
         self.TitleLabel.pack(side='top')
         self.TitleFrame.configure(height='200', width='200')
         self.TitleFrame.pack(side='top')
@@ -60,10 +62,10 @@ class ImageSticher:
         self.RenderFrame.pack(side='top')
         self.MainFrame.configure(height='200', width='200')
         self.MainFrame.pack(side='top')
-        self.toplevel4.configure(height='200', width='200')
+        self.TopLevel4.configure(height='200', width='200')
 
         # Main widget
-        self.mainWindow = self.toplevel4
+        self.mainWindow = self.TopLevel4
 
     def get_input_folder(self):
         print("selecting Input Folder")
@@ -94,29 +96,28 @@ class ImageSticher:
         self.StatusLabel.config(text="Rendering...")
         self.load_images()
 
-        TotalWidth = 0
-        TotalHeight = 0
+        total_width = 0
+        total_height = 0
 
         for img in self.images:
-            if img.width > TotalWidth:
-                TotalWidth = img.width
+            total_width = img.width if img.width > total_width else total_width
 
-            TotalHeight += img.height
+            total_height += img.height
 
-        print(TotalWidth, TotalHeight)
+        print(total_width, total_height)
 
-        newImg = Image.new('RGB', (TotalWidth, TotalHeight),ImageColor.getrgb("#ffffff"))
+        new_img = Image.new('RGB', (total_width, total_height), ImageColor.getrgb("#ffffff"))
 
-        heightOffset = 0
+        height_offset = 0
         for img in self.images:
-            ImageCenteringBuffer = int((TotalWidth - img.width) / 2)
+            image_centering_buffer = int((total_width - img.width) / 2)
 
-            newImg.paste(img, (ImageCenteringBuffer, heightOffset))
+            new_img.paste(img, (image_centering_buffer, height_offset))
 
-            heightOffset += img.height
+            height_offset += img.height
 
-        print(self.outputFolderPath + "/stiched.png")
-        newImg.save(self.outputFolderPath + "/stiched.png")
+        print(self.outputFolderPath + "/Stitched.png")
+        new_img.save(self.outputFolderPath + "/Stitched.png")
         self.StatusLabel.config(text="Done!")
 
     def run(self):
@@ -124,5 +125,5 @@ class ImageSticher:
 
 
 if __name__ == '__main__':
-    app = ImageSticher()
+    app = ImageStitcher()
     app.run()
