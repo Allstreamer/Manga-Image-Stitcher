@@ -1,5 +1,5 @@
 # Manga-Image-Stitcher
-![](https://img.shields.io/badge/Version-1.0.3-brightgreen)
+![](https://img.shields.io/badge/Version-1.0.3-brightgreen)[![Github All Releases](https://img.shields.io/github/downloads/Allstreamer/Manga-Image-Stitcher/total.svg)]()
 
 A tool used for combining images into a strip<br>
 Suported Formats are **PNG | JPEG | BMP | TIFF | TGA | ICO | JPEG 2000**
